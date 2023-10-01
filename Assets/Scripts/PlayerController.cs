@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
     public bool groundedPlayer;
     
     private Vector2 movementInput = Vector2.zero;
-    
+
+    private static int numPlayers = 0;
+    private  int playerNum;
     
     public bool jumped = false;
     
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
+        numPlayers++;
+        playerNum = numPlayers;
+        Debug.Log("Added new player!");
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -39,6 +44,12 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (playerNum == 1)
+        {
+            Debug.Log("Yeha, I am Player 1");
+            gravityValue = 0;
+        }
+
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
